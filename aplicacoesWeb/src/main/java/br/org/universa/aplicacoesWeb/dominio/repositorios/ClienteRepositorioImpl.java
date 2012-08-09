@@ -2,11 +2,16 @@ package br.org.universa.aplicacoesWeb.dominio.repositorios;
 
 import java.util.List;
 
+import javax.ejb.Local;
+import javax.ejb.Singleton;
+
 import br.org.universa.aplicacoesWeb.dominio.Cliente;
 import br.org.universa.aplicacoesWeb.infra.dao.ClienteDAO;
 import br.org.universa.aplicacoesWeb.infra.dao.HibernateDAOFactory;
 import br.org.universa.aplicacoesWeb.infra.dao.HibernateUtil;
 
+@Local
+@Singleton
 public class ClienteRepositorioImpl implements ClienteRepositorio {
 
 	@Override
