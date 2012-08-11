@@ -2,98 +2,60 @@ package br.org.universa.aplicacoesWeb.dominio.repositorios;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Singleton;
-
 import br.org.universa.aplicacoesWeb.dominio.Cliente;
 import br.org.universa.aplicacoesWeb.infra.dao.ClienteDAO;
-import br.org.universa.aplicacoesWeb.infra.dao.HibernateDAOFactory;
-import br.org.universa.aplicacoesWeb.infra.dao.HibernateUtil;
+import br.org.universa.aplicacoesWeb.infra.dao.GenericDAOImpl;
 
-@Local
-@Singleton
 public class ClienteRepositorioImpl implements ClienteRepositorio {
+
+	private GenericDAOImpl<Cliente, Long> cDAO;
+
+	public ClienteRepositorioImpl() {
+		this.cDAO = new ClienteDAO();
+	}
 
 	@Override
 	public Cliente buscarPorId(Long id) {
-		HibernateUtil.getSessionFactory().getCurrentSession()
-				.beginTransaction();
 
-		ClienteDAO cDAO = new HibernateDAOFactory().getClienteDAO();
+		cDAO.iniciarTransacao();
 
 		Cliente cliente = cDAO.buscarPorId(id, true);
 
-		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			e.printStackTrace();
-		}
+		cDAO.encerrarTransacao();
 
 		return cliente;
 	}
 
 	@Override
 	public List<Cliente> buscarTodos() {
-		HibernateUtil.getSessionFactory().getCurrentSession()
-				.beginTransaction();
-
-		ClienteDAO cDAO = new HibernateDAOFactory().getClienteDAO();
+		cDAO.iniciarTransacao();
 
 		List<Cliente> clientes = cDAO.buscarTodos();
-
-		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			e.printStackTrace();
-		}
+		cDAO.encerrarTransacao();
 
 		return clientes;
 	}
 
 	@Override
 	public Cliente salvarOuAtualizar(Cliente cliente) {
-		HibernateUtil.getSessionFactory().getCurrentSession()
-				.beginTransaction();
-
-		ClienteDAO cDAO = new HibernateDAOFactory().getClienteDAO();
-
-		cliente = cDAO.salvarOuAtualizar(cliente);
-
-		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			e.printStackTrace();
+		cDAO.iniciarTransacao();
+		if (cliente.getId() != null) {
+			cliente = cDAO.atualizar(cliente);
+		} else {
+			cliente = cDAO.salvar(cliente);
 		}
-
+		cDAO.encerrarTransacao();
 		return cliente;
 	}
 
 	@Override
 	public void excluir(Cliente entidade) {
-		HibernateUtil.getSessionFactory().getCurrentSession()
-				.beginTransaction();
 
-		ClienteDAO cDAO = new HibernateDAOFactory().getClienteDAO();
+		cDAO.iniciarTransacao();
 
-		cDAO.excluir(entidade);
+		cDAO.excluir(entidade.getId());
 
-		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().commit();
-		} catch (Exception e) {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.getTransaction().rollback();
-			e.printStackTrace();
-		}
+		cDAO.encerrarTransacao();
 
 	}
 

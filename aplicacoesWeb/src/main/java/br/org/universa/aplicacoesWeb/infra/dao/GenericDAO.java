@@ -3,8 +3,6 @@ package br.org.universa.aplicacoesWeb.infra.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.criterion.Criterion;
-
 /**
  * @author PH
  * 
@@ -17,12 +15,10 @@ public interface GenericDAO<T, ID extends Serializable> {
 
 	List<T> buscarTodos();
 
-	List<T> buscarPorExemplo(T instanciaExemplo, String[] propriedadesExcluir);
+	T salvar(T entidade);
 
-	T salvarOuAtualizar(T entidade);
+	T atualizar(T entidade);
 
-	void excluir(T entidade);
-
-	List<T> buscarPorCriteria(Criterion... criteria);
+	void excluir(ID id);
 
 }

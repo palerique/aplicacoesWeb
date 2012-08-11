@@ -2,15 +2,17 @@ package br.org.universa.aplicacoesWeb.servico;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import br.org.universa.aplicacoesWeb.dominio.Cliente;
 import br.org.universa.aplicacoesWeb.dominio.repositorios.ClienteRepositorio;
+import br.org.universa.aplicacoesWeb.dominio.repositorios.ClienteRepositorioImpl;
 
 public class ClienteNegocioImpl implements ClienteNegocio {
 
-	@Inject
 	ClienteRepositorio repo;
+
+	public ClienteNegocioImpl() {
+		this.repo = new ClienteRepositorioImpl();
+	}
 
 	@Override
 	public Cliente buscarPorId(Long id) {
@@ -24,13 +26,7 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 
 	@Override
 	public Cliente salvarOuAtualizar(Cliente cliente) {
-		try {
-			return repo.salvarOuAtualizar(cliente);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		return repo.salvarOuAtualizar(cliente);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class ClienteTest {
 		c.setEndereco("Rua da Alegria");
 		c.setEstado("DF");
 		c.setHomepage("www.google.com.br");
-		c.setId(0);
+		c.setId(0l);
 		c.setMunicipio("Águas Claras");
 		c.setQuantidadeEmpregados(2000);
 		c.setTelefone("33218181");
@@ -32,7 +32,7 @@ public class ClienteTest {
 		Assert.assertEquals("Rua da Alegria", c.getEndereco());
 		Assert.assertEquals("DF", c.getEstado());
 		Assert.assertEquals("www.google.com.br", c.getHomepage());
-		Assert.assertEquals(0, c.getId());
+		Assert.assertEquals(Long.valueOf(0), c.getId());
 		Assert.assertEquals("Águas Claras", c.getMunicipio());
 		Assert.assertEquals(2000, c.getQuantidadeEmpregados());
 		Assert.assertEquals("33218181", c.getTelefone());
