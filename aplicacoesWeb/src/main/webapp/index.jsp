@@ -5,138 +5,173 @@
 
 <!-- This is a demonstration of HTML5 goodness with healthy does of CSS3 mixed in -->
 <head>
-    
-    <title>One Page Portfolio with HTML5 and CSS3</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    			
-    <!--[if IE]>
+
+<title>Cadastro de Clientes</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<!--[if IE]>
     	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    
-    <!--[if IE 7]>
+
+<!--[if IE 7]>
     	<link rel="stylesheet" href="css/ie7.css" type="text/css" media="screen" />
     <![endif]-->
-    
-    <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-    
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js" type="text/javascript"></script>
-    <script src="js/jquery.anchor.js" type="text/javascript"></script>
-    <script src="js/jquery.fancybox-1.2.6.pack.js" type="text/javascript"></script>
-    
+
+<link rel="stylesheet" href="css/style.css" type="text/css"
+	media="screen" />
+
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"
+	type="text/javascript"></script>
+<script src="js/jquery.anchor.js" type="text/javascript"></script>
+<script src="js/jquery.fancybox-1.2.6.pack.js" type="text/javascript"></script>
+
 </head>
 
 <body>
 
-    <header> <!-- HTML5 header tag -->
-    
-    	<div id="headercontainer">
-    
-    		<h1><a class="introlink anchorLink" href="#intro">Web Design Portfolio</a></h1>
-    		
-    		<nav> <!-- HTML5 navigation tag -->
-    			<ul>
-    				<li><a class="introlink anchorLink" href="#intro">Intro</a></li>
-    				<li><a class="portfoliolink anchorLink" href="#portfolio">Portfolio</a></li>
-    				<li><a class="aboutlink anchorLink" href="#about">About</a></li>
-    				<li><a class="contactlink anchorLink" href="#contact">Contact</a></li>
-    			</ul>				
-    		</nav>
-    	
-    	</div>
-    
-    </header>
+	<header> <!-- HTML5 header tag -->
 
-    <section id="contentcontainer"> <!-- HTML5 section tag for the content 'section' -->
-    
-    	<section id="intro">
-    	
-    		<h2 class="intro">Hand-coded <strong>HTML</strong> and <strong>CSS</strong> is what I do. <span class="sub">It's what I'm good at so why not?</span></h2>
-    		
-    		<a class="featured" href="http://inspectelement.com"><img src="images/featured.gif" alt="Inspect Element large preview" /></a>
-    		
-    		<p>Featured Project: <a href="#">Inspect Element</a></p>
-    				
-    	</section>
+	<div id="headercontainer">
 
-    	<section id="portfolio"> <!-- HTML5 section tag for the portfolio 'section' -->
-    	
-    		<h2 class="work">My Portfolio</h2>
-    			
-    		<ul class="work">
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    			<li>
-    				<a href="http://inspectelement.com"><img src="images/inspectelementSmall.jpg" alt="Inspect Element preview" /></a>
-    			</li>
-    		</ul>
-    				
-    	</section>
-    			
-    	<section id="about"> <!-- HTML5 section tag for the about 'section' -->
-    	
-    		<h2 class="about">About Me</h2>
-    		
-    		<p>Now this is a story all about how my life got twisted upside down and I'd like to take a minute just sit right there I'll tell you how I became the prince of a town called Bel-Air. In West Philadelphia born and raised on the playground my momma said most of my days chilling out, maxing and relaxing all cool and all shooting some b-ball outside of school when a couple of guys they were up to no good started making trouble in our neighbourhood I got in one little fight and my mom got scared, she said your moving in with your auntie and uncle in Bel-Air</p>
-    	
-    	</section>
-    			
-    	<section id="contact"> <!-- HTML5 section tag for the contact 'section' -->
-    	
-    		<h2 class="contact">Contact Me</h2>
-    		
-    		<p>I whistled for a cab and when it came near the license plate said fresh and had dice in the mirror, if anything I could say that this cab was rare but I thought nah, <a href="">forget it</a>, yo home to Bel-Air! I pulled up to the house about seven or eight I yelled to the cabbie yo home, smell you later, looked at my kingdom I was finally there to sit on my throne as the prince of Bel-Air</p>
-    		
-    		<form id="contactform"> 
+		<h1>
+			<a class="introlink anchorLink" href="#intro">Cadastro de
+				Clientes</a>
+		</h1>
 
-    			<p><label for="name">Name</label></p> 
-    			<input type="text" id=name name=name placeholder="First and last name" required tabindex="1" /> 
-    			 
-    			<p><label for="email">Email</label></p> 
-    			<input type="text" id=email name=email placeholder="example@domain.com" required tabindex="2" /> 
-    			 
-    			<p><label for="comment">Your Message</label></p> 
-    			<textarea name="comment" id="comment" tabindex="4"></textarea> 
-    			 
-    			<input name="submit" type="submit" id="submit" tabindex="5" value="Send Message" /> 
-    			 
-    		</form> 
+		<nav> <!-- HTML5 navigation tag -->
+		<ul>
+			<li><a class="introlink anchorLink" href="#intro">Intro</a></li>
+			<li><a class="cadastrolink anchorLink" href="#cadastro">Cadastro</a></li>
+		</ul>
+		</nav>
 
-    	
-    	</section>
-    			
-    	<footer> <!-- HTML5 footer tag -->
-    	
-    		<ul>
-    			<li><img src="images/twitter.png" alt="" /><a href="http://twitter.com/tkenny">Follow me on Twitter</a></li>
-    			<li><a href="http://inspectelement.com/articles/code-a-backwards-compatible-one-page-portfolio-with-html5-and-css3">Back to the Tutorial on Inspect Element</a></li>
-    		</ul>
-    	
-    	</footer>	
-    
-    </section>
-    
+	</div>
+
+	</header>
+
+	<section id="contentcontainer"> <!-- HTML5 section tag for the content 'section' -->
+
+	<section id="intro">
+
+	<h2 class="intro">
+		Trabalho da disciplina <strong><a target="_blank"
+			class="featured"
+			href="http://moodle.universa.org.br/course/view.php?id=213">Aplicações
+				Web</a></strong>. <span class="sub">Desenvolvido pelos alunos <strong><a
+				class="featured"
+				href="mailto:brunobdantas@gmail.com?Subject=AplicaçõesWeb">Bruno</a></strong>
+			e <strong><a target="_blank" class="featured"
+				href="http://about.me/palerique">PH</a></strong> durante a pós graduação em <strong><a
+				target="_blank" class="featured"
+				href="http://www.universa.org.br/ueg_mbas_pos_view.asp?curso=235">Engenharia
+					e Desenvolvimento de Software</a></strong> na <strong><a
+				target="_blank" class="featured" href="http://www.universa.org.br/">Universa</a></strong>
+			ministrada pelo professor e coordenador <strong><a
+				class="featured"
+				href="mailto:academico.email@gmail.com?Subject=AplicaçõesWeb">Michel
+					Anderson</a></strong>.
+		</span>
+	</h2>
+
+	</section> <section id="cadastro"> <!-- HTML5 section tag for the cadastro 'section' -->
+
+	<h2 class="cadastro">Cadastro de Clientes</h2>
+
+	<p>Formulário para cadastro de pessoas jurídicas.</p>
+
+	<form id="cadastroform" method="post" action="cliente">
+
+		<!-- private Long id; -->
+		<input type="hidden" name="id" value="${cliente.id}" />
+
+		<!-- private String cnpj; -->
+		<p>
+			<label for="cnpj">CNPJ</label>
+		</p>
+		<input type="text" id="cnpj" name="cnpj" placeholder="99999999/0001"
+			required tabindex="1" value="${cliente.cnpj}" />
+
+		<!-- private String Contato; -->
+		<p>
+			<label for="contato">Contato</label>
+		</p>
+		<input type="text" id=contato name=contato placeholder="Contato"
+			required tabindex="2" value="${cliente.contato}" />
+
+		<!-- private String endereco; -->
+		<p>
+			<label for="endereco">Endereço</label>
+		</p>
+		<input type="text" id=endereco name=endereco placeholder="Endereço"
+			required tabindex="3" value="${cliente.endereco}" />
+
+		<!-- private String bairro; -->
+		<p>
+			<label for="bairro">Bairro</label>
+		</p>
+		<input type="text" id="bairro" name="bairro" placeholder="Bairro"
+			required tabindex="4" value="${cliente.bairro}" />
+
+		<!-- private String municipio; -->
+		<p>
+			<label for="municipio">Município</label>
+		</p>
+		<input type="text" id="municipio" name="municipio"
+			placeholder="Município" required tabindex="5"
+			value="${cliente.municipio}" />
+
+		<!-- private String estado; -->
+		<p>
+			<label for="estado">Estado</label>
+		</p>
+		<input type="text" id="estado" name="estado" placeholder="Estado"
+			required tabindex="6" value="${cliente.estado}" />
+
+		<!-- private String telefone; -->
+		<p>
+			<label for="telefone">Telefone</label>
+		</p>
+		<input type="text" id="telefone" name="telefone"
+			placeholder="Telefone" required tabindex="7"
+			value="${cliente.telefone}" />
+
+		<!-- private String homepage; -->
+		<p>
+			<label for="homepage">Homepage</label>
+		</p>
+		<input type="text" id="homepage" name="homepage"
+			placeholder="www.paginadaempresa.com.br" required tabindex="8"
+			value="${cliente.homepage}" />
+
+		<!-- private int quantidadeEmpregados; -->
+		<p>
+			<label for="quantidadeEmpregados">Quantidade de Empregados</label>
+		</p>
+		<input type="text" id="quantidadeEmpregados"
+			name="quantidadeEmpregados" placeholder="Quantidade de Empregados"
+			required tabindex="2" value="${cliente.quantidadeEmpregados}" />
+
+		<p>
+			<input name="submit" type="submit" id="submit" tabindex="9"
+				value="Enviar" />
+		</p>
+
+	</form>
+
+
+	</section> <footer> <!-- HTML5 footer tag -->
+
+	<ul>
+		<li><img src="images/twitter.png" alt="" /><a target="_blank"
+			href="http://twitter.com/tkenny">Follow me on Twitter</a></li>
+		<li><a target="_blank"
+			href="http://inspectelement.com/articles/code-a-backwards-compatible-one-page-portfolio-with-html5-and-css3">Back
+				to the Tutorial on Inspect Element</a></li>
+	</ul>
+
+	</footer> </section>
+
 </body>
 
 </html>
