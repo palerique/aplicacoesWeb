@@ -65,8 +65,8 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements
 
 	@Override
 	public T atualizar(T entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		this.em.merge(entidade);
+		return entidade;
 	}
 
 	public void iniciarTransacao() {

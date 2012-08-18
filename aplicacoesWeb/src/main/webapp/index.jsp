@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="pt">
@@ -76,19 +77,63 @@
 		</span>
 	</h2>
 
-	</section>
-	
-	<!-- HTML5 section com a lista de clientes cadastrados -->
-	<section id="lista">
+	</section> <!-- HTML5 section com a lista de clientes cadastrados --> <section
+		id="lista">
 
 	<h2 class="cadastro">Clientes Cadastrados</h2>
 
-	<p>Lista com todos os clientes cadastrados no sistema</p>
 
-	</section>
-	
-	<!-- HTML5 section tag for the cadastro 'section' -->
-	<section id="cadastro">
+	<c:choose>
+		<c:when test="${not empty clientes}">
+			<p>Lista com todos os clientes cadastrados no sistema</p>
+
+			<div>
+				<table id="tabela-clientes">
+					<tr>
+						<th>Contato</th>
+						<th>CNPJ</th>
+						<th>Homepage</th>
+						<th>Endereço</th>
+						<th>Bairro</th>
+						<th>Município</th>
+						<th>Estado</th>
+						<th>Telefone</th>
+						<th>Quantidade de Empregados</th>
+						<th>Editar</th>
+						<th>Excluir</th>
+					</tr>
+
+					<c:forEach var="cli" items="${clientes}">
+						<tr>
+							<td><c:out value="${cli.contato}" /></td>
+							<td><c:out value="${cli.cnpj}" /></td>
+							<td><c:out value="${cli.homepage}" /></td>
+							<td><c:out value="${cli.endereco}" /></td>
+							<td><c:out value="${cli.bairro}" /></td>
+							<td><c:out value="${cli.municipio}" /></td>
+							<td><c:out value="${cli.estado}" /></td>
+							<td><c:out value="${cli.telefone}" /></td>
+							<td><c:out value="${cli.quantidadeEmpregados}" /></td>
+							<td><c:url value="cliente" var="urlEditar">
+									<c:param name="acao" value="buscar" />
+									<c:param name="id" value="${cli.id}" />
+								</c:url> <a href="${urlEditar}">Editar</a></td>
+							<td><c:url value="cliente" var="urlRemover">
+									<c:param name="acao" value="remover" />
+									<c:param name="id" value="${cli.id}" />
+								</c:url> <a href="${urlRemover}">Remover</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+
+		</c:when>
+		<c:otherwise>
+			<p>Nenhum Cliente Cadastrado no Sistema</p>
+		</c:otherwise>
+
+	</c:choose> </section> <!-- HTML5 section tag for the cadastro 'section' --> <section
+		id="cadastro">
 
 	<h2 class="cadastro">Cadastro de Clientes</h2>
 
@@ -104,21 +149,20 @@
 			<label for="cnpj">CNPJ</label>
 		</p>
 		<input type="text" id="cnpj" name="cnpj" placeholder="99999999/0001"
-			 tabindex="1" value="${cliente.cnpj}" />
+			tabindex="1" value="${cliente.cnpj}" />
 
 		<!-- private String Contato; -->
 		<p>
 			<label for="contato">Contato</label>
 		</p>
 		<input type="text" id=contato name=contato placeholder="Contato"
-			 tabindex="2" value="${cliente.contato}" />
+			tabindex="2" value="${cliente.contato}" />
 
 		<!-- private String endereco; -->
 		<p>
 			<label for="endereco">Endereço</label>
 		</p>
 		<input type="text" id=endereco name=endereco placeholder="Endereço"
-			 data-errormessage-value-missing="Please input something"
 			tabindex="3" value="${cliente.endereco}" />
 
 		<!-- private String bairro; -->
@@ -126,37 +170,35 @@
 			<label for="bairro">Bairro</label>
 		</p>
 		<input type="text" id="bairro" name="bairro" placeholder="Bairro"
-			 tabindex="4" value="${cliente.bairro}" />
+			tabindex="4" value="${cliente.bairro}" />
 
 		<!-- private String municipio; -->
 		<p>
 			<label for="municipio">Município</label>
 		</p>
 		<input type="text" id="municipio" name="municipio"
-			placeholder="Município"  tabindex="5"
-			value="${cliente.municipio}" />
+			placeholder="Município" tabindex="5" value="${cliente.municipio}" />
 
 		<!-- private String estado; -->
 		<p>
 			<label for="estado">Estado</label>
 		</p>
 		<input type="text" id="estado" name="estado" placeholder="Estado"
-			 tabindex="6" value="${cliente.estado}" />
+			tabindex="6" value="${cliente.estado}" />
 
 		<!-- private String telefone; -->
 		<p>
 			<label for="telefone">Telefone</label>
 		</p>
 		<input type="text" id="telefone" name="telefone"
-			placeholder="Telefone"  tabindex="7"
-			value="${cliente.telefone}" />
+			placeholder="Telefone" tabindex="7" value="${cliente.telefone}" />
 
 		<!-- private String homepage; -->
 		<p>
 			<label for="homepage">Homepage</label>
 		</p>
 		<input type="text" id="homepage" name="homepage"
-			placeholder="www.paginadaempresa.com.br"  tabindex="8"
+			placeholder="www.paginadaempresa.com.br" tabindex="8"
 			value="${cliente.homepage}" />
 
 		<!-- private int quantidadeEmpregados; -->
@@ -165,13 +207,13 @@
 		</p>
 		<input type="text" id="quantidadeEmpregados"
 			name="quantidadeEmpregados" placeholder="Quantidade de Empregados"
-			 tabindex="2" value="${cliente.quantidadeEmpregados}" />
+			tabindex="2" value="${cliente.quantidadeEmpregados}" />
 
 		<p>
 			<input name="submit" type="submit" id="submit" tabindex="9"
 				value="Enviar" />
 		</p>
-		
+
 		<!-- TODO: inserir o atributo required nos inputs types requeridos-->
 
 	</form>

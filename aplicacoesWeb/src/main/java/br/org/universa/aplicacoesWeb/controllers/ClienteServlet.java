@@ -33,7 +33,11 @@ public class ClienteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		serve(request, response);
+		try {
+			serve(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -42,7 +46,11 @@ public class ClienteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		serve(request, response);
+		try {
+			serve(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -56,8 +64,8 @@ public class ClienteServlet extends HttpServlet {
 	private void serve(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		clienteService = new ClienteNegocioImpl();
-
+		// Capturo os parâmetros enviados pela camada de apresentação:
+		String acao = request.getParameter("acao");
 		String idString = request.getParameter("id");
 		String cnpj = request.getParameter("cnpj");
 		String endereco = request.getParameter("endereco");
@@ -86,35 +94,65 @@ public class ClienteServlet extends HttpServlet {
 		// out.println("homepage =" + homepage);
 		// out.println("quantidade =" + quantidadeEmpregadosString);
 
-		Cliente c = new Cliente();
+		// À partir daqui vamos trabalhar de acordo com a ação desejada pelo
+		// usuário!
+		clienteService = new ClienteNegocioImpl();
 
-		c.setCnpj(cnpj);
-		c.setBairro(bairro);
-		c.setContato(contato);
-		c.setEndereco(endereco);
-		c.setEstado(estado);
-		c.setHomepage(homepage);
-		c.setMunicipio(municipio);
-		c.setTelefone(telefone);
+		// Se o usuário quiser excluir o cliente então eu primeiro busco ele na
+		// sessão e depois peço para excluí-lo!
+		if (acao != null && acao.equals("remover")) {
 
-		// Como os dados chegam sempre no formato textual - como String -
-		// preciso converter aquilo que é numérico em tipo numérico!
-		c.setQuantidadeEmpregados(Integer.parseInt(quantidadeEmpregadosString));
+			Cliente cliente = clienteService.buscarPorId(Long
+					.parseLong(idString));
 
-		if (idString != null && !idString.equals("")) {
-			c.setId(Long.parseLong(idString));
+			clienteService.excluir(cliente);
+
+			// Se o usuário quiser buscar um cliente para edição então eu acesso
+			// o
+			// banco, trago o cara e o disponibilizo para edição!
+		} else if (acao != null && acao.equals("buscar")) {
+
+			Cliente cliente = clienteService.buscarPorId(Long
+					.parseLong(idString));
+
+			request.setAttribute("cliente", cliente);
+
+			// Caso não for exclusão nem busca então ou é salvar - sem id - ou
+			// editar - com id -.
+		} else {
+
+			// Instancio o cliente de acordo com os dados capturados
+			Cliente c = new Cliente();
+
+			c.setCnpj(cnpj);
+			c.setBairro(bairro);
+			c.setContato(contato);
+			c.setEndereco(endereco);
+			c.setEstado(estado);
+			c.setHomepage(homepage);
+			c.setMunicipio(municipio);
+			c.setTelefone(telefone);
+
+			// Como os dados chegam sempre no formato textual - como String -
+			// preciso converter aquilo que é numérico em tipo numérico!
+			c.setQuantidadeEmpregados(Integer
+					.parseInt(quantidadeEmpregadosString));
+
+			if (idString != null && !idString.equals("")) {
+				c.setId(Long.parseLong(idString));
+			}
+
+			clienteService.salvarOuAtualizar(c);
+
 		}
-
-		clienteService.salvarOuAtualizar(c);
 
 		List<Cliente> clientes = clienteService.buscarTodos();
 
 		request.setAttribute("clientes", clientes);
 
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp#lista");
+		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 
 		rd.forward(request, response);
 
 	}
-
 }
