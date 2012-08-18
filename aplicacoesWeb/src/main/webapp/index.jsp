@@ -42,6 +42,8 @@
 		<nav> <!-- HTML5 navigation tag -->
 		<ul>
 			<li><a class="introlink anchorLink" href="#intro">Intro</a></li>
+			<li><a class="listalink anchorLink" href="#lista">Lista de
+					Clientes</a></li>
 			<li><a class="cadastrolink anchorLink" href="#cadastro">Cadastro</a></li>
 		</ul>
 		</nav>
@@ -74,7 +76,19 @@
 		</span>
 	</h2>
 
-	</section> <section id="cadastro"> <!-- HTML5 section tag for the cadastro 'section' -->
+	</section>
+	
+	<!-- HTML5 section com a lista de clientes cadastrados -->
+	<section id="lista">
+
+	<h2 class="cadastro">Clientes Cadastrados</h2>
+
+	<p>Lista com todos os clientes cadastrados no sistema</p>
+
+	</section>
+	
+	<!-- HTML5 section tag for the cadastro 'section' -->
+	<section id="cadastro">
 
 	<h2 class="cadastro">Cadastro de Clientes</h2>
 
@@ -90,35 +104,36 @@
 			<label for="cnpj">CNPJ</label>
 		</p>
 		<input type="text" id="cnpj" name="cnpj" placeholder="99999999/0001"
-			required tabindex="1" value="${cliente.cnpj}" />
+			 tabindex="1" value="${cliente.cnpj}" />
 
 		<!-- private String Contato; -->
 		<p>
 			<label for="contato">Contato</label>
 		</p>
 		<input type="text" id=contato name=contato placeholder="Contato"
-			required tabindex="2" value="${cliente.contato}" />
+			 tabindex="2" value="${cliente.contato}" />
 
 		<!-- private String endereco; -->
 		<p>
 			<label for="endereco">Endereço</label>
 		</p>
 		<input type="text" id=endereco name=endereco placeholder="Endereço"
-			required tabindex="3" value="${cliente.endereco}" />
+			 data-errormessage-value-missing="Please input something"
+			tabindex="3" value="${cliente.endereco}" />
 
 		<!-- private String bairro; -->
 		<p>
 			<label for="bairro">Bairro</label>
 		</p>
 		<input type="text" id="bairro" name="bairro" placeholder="Bairro"
-			required tabindex="4" value="${cliente.bairro}" />
+			 tabindex="4" value="${cliente.bairro}" />
 
 		<!-- private String municipio; -->
 		<p>
 			<label for="municipio">Município</label>
 		</p>
 		<input type="text" id="municipio" name="municipio"
-			placeholder="Município" required tabindex="5"
+			placeholder="Município"  tabindex="5"
 			value="${cliente.municipio}" />
 
 		<!-- private String estado; -->
@@ -126,14 +141,14 @@
 			<label for="estado">Estado</label>
 		</p>
 		<input type="text" id="estado" name="estado" placeholder="Estado"
-			required tabindex="6" value="${cliente.estado}" />
+			 tabindex="6" value="${cliente.estado}" />
 
 		<!-- private String telefone; -->
 		<p>
 			<label for="telefone">Telefone</label>
 		</p>
 		<input type="text" id="telefone" name="telefone"
-			placeholder="Telefone" required tabindex="7"
+			placeholder="Telefone"  tabindex="7"
 			value="${cliente.telefone}" />
 
 		<!-- private String homepage; -->
@@ -141,7 +156,7 @@
 			<label for="homepage">Homepage</label>
 		</p>
 		<input type="text" id="homepage" name="homepage"
-			placeholder="www.paginadaempresa.com.br" required tabindex="8"
+			placeholder="www.paginadaempresa.com.br"  tabindex="8"
 			value="${cliente.homepage}" />
 
 		<!-- private int quantidadeEmpregados; -->
@@ -150,12 +165,14 @@
 		</p>
 		<input type="text" id="quantidadeEmpregados"
 			name="quantidadeEmpregados" placeholder="Quantidade de Empregados"
-			required tabindex="2" value="${cliente.quantidadeEmpregados}" />
+			 tabindex="2" value="${cliente.quantidadeEmpregados}" />
 
 		<p>
 			<input name="submit" type="submit" id="submit" tabindex="9"
 				value="Enviar" />
 		</p>
+		
+		<!-- TODO: inserir o atributo required nos inputs types requeridos-->
 
 	</form>
 

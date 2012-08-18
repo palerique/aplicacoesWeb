@@ -29,12 +29,21 @@
 
 
 	<dependencies>
+		<!-- TOMCAT -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>7.0.29</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- JSTL -->
+		<dependency>
+			<groupId>org.jboss.spec.javax.servlet.jstl</groupId>
+			<artifactId>jboss-jstl-api_1.2_spec</artifactId>
+			<version>1.0.3.Final</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
