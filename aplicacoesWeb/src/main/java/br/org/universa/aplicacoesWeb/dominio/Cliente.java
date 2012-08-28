@@ -20,6 +20,7 @@ public class Cliente {
 	private String contato;
 	private String homepage;
 	private int quantidadeEmpregados;
+	private String nome;
 
 	public Long getId() {
 		return id;
@@ -99,6 +100,14 @@ public class Cliente {
 
 	public void setQuantidadeEmpregados(int quantidadeEmpregados) {
 		this.quantidadeEmpregados = quantidadeEmpregados;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getNome() {
+		return nome;
 	}
 
 }

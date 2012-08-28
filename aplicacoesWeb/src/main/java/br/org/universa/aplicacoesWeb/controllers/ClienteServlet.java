@@ -25,19 +25,15 @@ import br.org.universa.aplicacoesWeb.servico.ClienteNegocioImpl;
  */
 public class ClienteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ClienteNegocioImpl clienteService;
+	private transient ClienteNegocioImpl clienteService;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			serve(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			HttpServletResponse response) {
+		serve(request, response);
 	}
 
 	/**
@@ -45,12 +41,9 @@ public class ClienteServlet extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		try {
-			serve(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			HttpServletResponse response) {
+		serve(request, response);
+
 	}
 
 	/**
@@ -61,11 +54,13 @@ public class ClienteServlet extends HttpServlet {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void serve(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	private void serve(HttpServletRequest request, HttpServletResponse response) {
+
+		String mensagem = null;
 
 		// Capturo os parâmetros enviados pela camada de apresentação:
 		String acao = request.getParameter("acao");
+		String nome = request.getParameter("nome");
 		String idString = request.getParameter("id");
 		String cnpj = request.getParameter("cnpj");
 		String endereco = request.getParameter("endereco");
@@ -110,6 +105,7 @@ public class ClienteServlet extends HttpServlet {
 			// Se o usuário quiser buscar um cliente para edição então eu acesso
 			// o
 			// banco, trago o cara e o disponibilizo para edição!
+			mensagem = "Cliente Excluído com Sucesso!!!";
 		} else if (acao != null && acao.equals("buscar")) {
 
 			Cliente cliente = clienteService.buscarPorId(Long
@@ -119,12 +115,14 @@ public class ClienteServlet extends HttpServlet {
 
 			// Caso não for exclusão nem busca então ou é salvar - sem id - ou
 			// editar - com id -.
-		} else {
+			mensagem = "Cliente Carregado com Sucesso No Formulário!!!";
+		} else if (acao != null && acao.equals("salvarOuEditar")) {
 
 			// Instancio o cliente de acordo com os dados capturados
 			Cliente c = new Cliente();
 
 			c.setCnpj(cnpj);
+			c.setNome(nome);
 			c.setBairro(bairro);
 			c.setContato(contato);
 			c.setEndereco(endereco);
@@ -138,8 +136,10 @@ public class ClienteServlet extends HttpServlet {
 			c.setQuantidadeEmpregados(Integer
 					.parseInt(quantidadeEmpregadosString));
 
+			mensagem = "Cliente Criado com Sucesso!!!";
 			if (idString != null && !idString.equals("")) {
 				c.setId(Long.parseLong(idString));
+				mensagem = "Cliente Editado com Sucesso!!!";
 			}
 
 			clienteService.salvarOuAtualizar(c);
@@ -150,9 +150,20 @@ public class ClienteServlet extends HttpServlet {
 
 		request.setAttribute("clientes", clientes);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		if (mensagem != null)
+			request.setAttribute("mensagem", mensagem);
 
-		rd.forward(request, response);
+		RequestDispatcher rd = request
+				.getRequestDispatcher("WEB-INF/index.jsp");
 
+		throw new RuntimeException();
+
+		// try {
+		// rd.forward(request, response);
+		// } catch (ServletException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 	}
 }
