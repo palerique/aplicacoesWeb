@@ -35,4 +35,9 @@ public class ClienteNegocioImpl implements ClienteNegocio {
 
 	}
 
+	public void excluir(long id) {
+		Cliente cliente = buscarPorId(id);
+		excluir(cliente);
+	}
+
 }

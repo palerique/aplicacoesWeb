@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.org.universa.aplicacoesWeb.dominio.Cliente;
+import br.org.universa.aplicacoesWeb.dominio.builders.ClienteBuilder;
 import br.org.universa.aplicacoesWeb.servico.ClienteNegocioImpl;
 
 /**
@@ -57,21 +58,7 @@ public class ClienteServlet extends HttpServlet {
 	private void serve(HttpServletRequest request, HttpServletResponse response) {
 
 		String mensagem = null;
-
-		// Capturo os parâmetros enviados pela camada de apresentação:
 		String acao = request.getParameter("acao");
-		String nome = request.getParameter("nome");
-		String idString = request.getParameter("id");
-		String cnpj = request.getParameter("cnpj");
-		String endereco = request.getParameter("endereco");
-		String bairro = request.getParameter("bairro");
-		String municipio = request.getParameter("municipio");
-		String estado = request.getParameter("estado");
-		String telefone = request.getParameter("telefone");
-		String contato = request.getParameter("contato");
-		String homepage = request.getParameter("homepage");
-		String quantidadeEmpregadosString = request
-				.getParameter("quantidadeEmpregados");
 
 		// O código abaixo escreve na resposta à partir do servlet, não é
 		// recomendável mas é necessário conhecer!
@@ -97,10 +84,7 @@ public class ClienteServlet extends HttpServlet {
 		// sessão e depois peço para excluí-lo!
 		if (acao != null && acao.equals("remover")) {
 
-			Cliente cliente = clienteService.buscarPorId(Long
-					.parseLong(idString));
-
-			clienteService.excluir(cliente);
+			clienteService.excluir(Long.parseLong(request.getParameter("id")));
 
 			// Se o usuário quiser buscar um cliente para edição então eu acesso
 			// o
@@ -108,8 +92,8 @@ public class ClienteServlet extends HttpServlet {
 			mensagem = "Cliente Excluído com Sucesso!!!";
 		} else if (acao != null && acao.equals("buscar")) {
 
-			Cliente cliente = clienteService.buscarPorId(Long
-					.parseLong(idString));
+			Cliente cliente = clienteService.buscarPorId(Long.parseLong(request
+					.getParameter("id")));
 
 			request.setAttribute("cliente", cliente);
 
@@ -118,28 +102,12 @@ public class ClienteServlet extends HttpServlet {
 			mensagem = "Cliente Carregado com Sucesso No Formulário!!!";
 		} else if (acao != null && acao.equals("salvarOuEditar")) {
 
-			// Instancio o cliente de acordo com os dados capturados
-			Cliente c = new Cliente();
+			Cliente c = constroiCliente(request);
 
-			c.setCnpj(cnpj);
-			c.setNome(nome);
-			c.setBairro(bairro);
-			c.setContato(contato);
-			c.setEndereco(endereco);
-			c.setEstado(estado);
-			c.setHomepage(homepage);
-			c.setMunicipio(municipio);
-			c.setTelefone(telefone);
-
-			// Como os dados chegam sempre no formato textual - como String -
-			// preciso converter aquilo que é numérico em tipo numérico!
-			c.setQuantidadeEmpregados(Integer
-					.parseInt(quantidadeEmpregadosString));
-
-			mensagem = "Cliente Criado com Sucesso!!!";
-			if (idString != null && !idString.equals("")) {
-				c.setId(Long.parseLong(idString));
+			if (c.getId() != null) {
 				mensagem = "Cliente Editado com Sucesso!!!";
+			} else {
+				mensagem = "Cliente Criado com Sucesso!!!";
 			}
 
 			clienteService.salvarOuAtualizar(c);
@@ -156,14 +124,50 @@ public class ClienteServlet extends HttpServlet {
 		RequestDispatcher rd = request
 				.getRequestDispatcher("WEB-INF/index.jsp");
 
-		throw new RuntimeException();
+		try {
+			rd.forward(request, response);
+		} catch (ServletException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-		// try {
-		// rd.forward(request, response);
-		// } catch (ServletException e) {
-		// e.printStackTrace();
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
+	private Cliente constroiCliente(HttpServletRequest request) {
+
+		// Capturo os parâmetros enviados pela camada de apresentação:
+		String nome = request.getParameter("nome");
+		String idString = request.getParameter("id");
+		String cnpj = request.getParameter("cnpj");
+		String endereco = request.getParameter("endereco");
+		String bairro = request.getParameter("bairro");
+		String municipio = request.getParameter("municipio");
+		String estado = request.getParameter("estado");
+		String telefone = request.getParameter("telefone");
+		String contato = request.getParameter("contato");
+		String homepage = request.getParameter("homepage");
+		String quantidadeEmpregadosString = request
+				.getParameter("quantidadeEmpregados");
+
+		// Instancio o cliente de acordo com os dados capturados
+		ClienteBuilder cBuilder = new ClienteBuilder();
+
+		cBuilder.criarClienteDeNome(nome).comCnpj(cnpj).noBairro(bairro)
+				.comContato(contato).noEndereco(endereco).noEstado(estado)
+				.comHomePage(homepage).noMunicipio(municipio)
+				.comTelefone(telefone);
+
+		if (quantidadeEmpregadosString != null
+				&& !"".equals(quantidadeEmpregadosString)) {
+			cBuilder.ondeTrabalhamEmpregados(Integer
+					.parseInt(quantidadeEmpregadosString));
+		}
+		if (idString != null && !"".equals(idString)) {
+			cBuilder.comId(Long.parseLong(idString));
+		}
+
+		Cliente c = cBuilder.constroi();
+
+		return c;
 	}
 }
